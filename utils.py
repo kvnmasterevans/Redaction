@@ -166,16 +166,13 @@ def removeStateID(image, OCRData, CourseHeaderRow):
     numStateId = len(detectedStateIdPositions)
     img_state_id_removed = image # initialize with original image
     if numStateId == 0:
-        print("do nothing")
         img_state_id_removed = image
     elif  numStateId == 1:
-        print("ideal scenario?")
         y_val = detectedStateIdPositions[0]
         if y_val > CourseHeaderRow:
             # "erase" everything "state id" through bottom of image
             img_state_id_removed = cv2.rectangle(image, (int(0),int(y_val)), (int(wid), int(hei)), (255,255,255), cv2.FILLED)
     else:
-        print("for each instance...")
         for state_id_position in detectedStateIdPositions:
             if state_id_position > CourseHeaderRow:
                 # "erase" everything "state id" through bottom of image

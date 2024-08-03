@@ -39,7 +39,6 @@ def process_image(filename, input_folder_path):
         OCR_Data = json.load(json_file)
 
     originalImg = openJpgImage(original_jpg_path)
-    print()
     textlessImg = removeText(original_jpg_path, OCR_Data)
     toplessImg, coursesHeaderRow = removeTop(textlessImg, OCR_Data)
 
@@ -70,15 +69,9 @@ def process_images_in_folder(folder_path):
         # Check if the file is an image
         if filename.lower().endswith(('.pdf')):
 
-            
-            # split file name and path?
-            print("filename " + str(filename))
-            print("folder_path " + str(folder_path))
-
             redacted_image = process_image(filename, folder_path)
 
             fileName = os.path.basename(remove_extension(filename))
-            print("filename"   + str(fileName))
             redacted_img_path = "Redacted/" + str(fileName) + ".jpg"
             
             save_image(redacted_image, redacted_img_path)

@@ -1,8 +1,3 @@
-English_Learner_Detector.py is actually not used in this version of the program
-I'll remove it as soon as I figure out how to do that.
-~Sorry.
-
-
             TRANSCRIPT REDACTOR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
