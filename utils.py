@@ -159,7 +159,7 @@ def removeStateID(image, OCRData, CourseHeaderRow):
             if(spelling in textChunk["text"].lower()):
                 if stringDetected == False:
                     stringDetected = True
-                    rowVal = textChunk["bounding_box"][0]["y"] # pixel location for bottom of "couse id" line
+                    rowVal = [textChunk["bounding_box"][0]["y"], textChunk["bounding_box"][0]["x"]] # pixel location for bottom of "couse id" line
                     detectedStateIdPositions.append(rowVal)
 
 
@@ -167,17 +167,27 @@ def removeStateID(image, OCRData, CourseHeaderRow):
     img_state_id_removed = image # initialize with original image
     if numStateId == 0:
         img_state_id_removed = image
-    elif  numStateId == 1:
-        y_val = detectedStateIdPositions[0]
-        if y_val > CourseHeaderRow:
-            # "erase" everything "state id" through bottom of image
-            img_state_id_removed = cv2.rectangle(image, (int(0),int(y_val)), (int(wid), int(hei)), (255,255,255), cv2.FILLED)
     else:
         for state_id_position in detectedStateIdPositions:
-            if state_id_position > CourseHeaderRow:
-                # "erase" everything "state id" through bottom of image
-                img_state_id_removed = cv2.rectangle(img_state_id_removed, (int(0),int(y_val)), (int(wid), int(hei)), (255,255,255), cv2.FILLED)
+            y_val = state_id_position[0]
+            x_val = state_id_position[1]
 
+            if ( x_val + int(wid / 5) ) > wid:
+               censor_right_side = wid
+            else:
+                censor_right_side = x_val + int(wid / 5)
+            
+            if ( y_val + int(wid / 8) ) > hei:
+               censor_bottom = hei
+            else:
+                censor_bottom = y_val + int(wid / 8)
+
+            censor_bottom_right = ( int(censor_right_side), int(censor_bottom) )
+
+            if y_val > CourseHeaderRow:
+                # "erase" everything "state id" through bottom of image
+                # img_state_id_removed = cv2.rectangle(img_state_id_removed, (int(0),int(y_val)), (int(wid), int(hei)), (255,255,255), cv2.FILLED)
+                img_state_id_removed = cv2.rectangle(img_state_id_removed, (int(x_val),int(y_val)), (censor_bottom_right), (255,255,255), cv2.FILLED)
 
     return img_state_id_removed    
     

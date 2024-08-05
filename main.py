@@ -25,6 +25,16 @@ def process_single_image(file_name, input_folder_path):
 #   col top, col edges, col bottoms?
 def process_image(filename, input_folder_path):
 
+    def remove_temporary_files():
+        # Remove temporary image file
+        OUTPUT_IMAGE_PATH = "Temp/temp.jpg"
+        if os.path.exists(OUTPUT_IMAGE_PATH):
+            os.remove(OUTPUT_IMAGE_PATH)
+        # Remove temporary OCR_DATA .jpg
+        if os.path.exists(OCR_Data_Path):
+            os.remove(OCR_Data_Path)
+
+
     print("processing transcript " + str(filename) + " in folder " + str(input_folder_path))
 
     file_path = os.path.join(input_folder_path, filename)
@@ -48,10 +58,7 @@ def process_image(filename, input_folder_path):
     semi_redacted_image, coursesHeaderRow = removeTop(cleanImage, OCR_Data)
     redacted_image = removeStateID(semi_redacted_image, OCR_Data, coursesHeaderRow)
 
-    # Remove temporary image file
-    OUTPUT_IMAGE_PATH = "Temp/temp.jpg"
-    if os.path.exists(OUTPUT_IMAGE_PATH):
-        os.remove(OUTPUT_IMAGE_PATH)
+    remove_temporary_files()
 
     return redacted_image
 
