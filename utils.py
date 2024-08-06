@@ -126,13 +126,16 @@ def removeText(textImagePath, OCRData):
 # draws a white rectangle over any portion of the image
 # that's above the class data
 def removeTop(textImage, OCRData):
-    CourseStrings = ["course", "crs", "coun5", "coursc", "courec", "cour60"]
+    CourseStrings = ["course", "crs", "coun5", "coursc", "courec", "cour60", \
+                        "Koun75", "Covn5", "Couno o", "Coro"]
     hei, wid = textImage.shape
+
+    
 
     stringDetected = False
     for textChunk in OCRData:
         for course in CourseStrings:
-            if(course in textChunk["text"].lower()):
+            if(course.lower() in textChunk["text"].lower()):
                 if stringDetected == False:
                     stringDetected = True
                     rowVal = textChunk["bounding_box"][0]["y"] # pixel location for bottom of "couse id" line
@@ -141,7 +144,7 @@ def removeTop(textImage, OCRData):
 
     if stringDetected == False:
         return textImage, 0
-    else:            
+    else:           
         return topless_img, rowVal
     
 
