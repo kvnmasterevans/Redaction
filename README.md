@@ -40,13 +40,13 @@ To process single transcript:
 
     python src/main.py run <transcript-name.pdf> <Folder name>
 
-eg. `python main.py run 000000001.pdf Transcripts`
+eg. `python src/main.py run 000000001.pdf Transcripts`
 
 To process all transcripts:
 
-    python main.py run all <Folder name>
+    python src/main.py run all <Folder name>
 
-eg. `python main.py run all Transcripts`
+eg. `python src/main.py run all Transcripts`
 
 
 
