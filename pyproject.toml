@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "transcript-redaction"
+dynamic = ["version"]
+
+dependencies = [
+    'easyocr',
+    'opencv-python',
+    'PyMuPDF',
+    'torch @ https://download.pytorch.org/whl/cu124/torch-2.4.1%2Bcu124-cp311-cp311-win_amd64.whl',
+    'torchvision @ https://download.pytorch.org/whl/cu124/torchvision-0.19.1%2Bcu124-cp311-cp311-win_amd64.whl',
+    'nltk'
+]

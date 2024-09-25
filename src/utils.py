@@ -86,7 +86,7 @@ def run_ocr(jpg_img_path):
     pdf_page = pdf_document.load_page(0)
     pix = pdf_page.get_pixmap(matrix=fitz.Matrix(300/72, 300/72))  # Convert to image with 300 DPI
     pix.save(OUTPUT_IMAGE_PATH)
-    reader = easyocr.Reader(['en'], gpu=False)
+    reader = easyocr.Reader(['en'], gpu=True)
     result = reader.readtext(OUTPUT_IMAGE_PATH)
 
     return result
