@@ -13,7 +13,7 @@ def process_single_image(file_name, input_folder_path):
     redacted_image = process_image(file_name, input_folder_path)
 
     filename = os.path.basename(remove_extension(file_name))
-    redacted_img_path = "Redacted/" + str(filename) + '.jpg'
+    redacted_img_path = "Redacted/" + str(filename) + '.png'
     save_image(redacted_image, redacted_img_path)
 
     
@@ -70,19 +70,21 @@ def process_images_in_folder(folder_path):
     # scan in image
      # List all files in the folder
     for filename in os.listdir(folder_path):
-        # Construct the full file path
-        file_path = os.path.join(folder_path, filename)
-        
-        # Check if the file is an image
-        if filename.lower().endswith(('.pdf')):
-
-            redacted_image = process_image(filename, folder_path)
-
-            fileName = os.path.basename(remove_extension(filename))
-            redacted_img_path = "Redacted/" + str(fileName) + ".jpg"
+        try:
+            # Construct the full file path
+            file_path = os.path.join(folder_path, filename)
             
-            save_image(redacted_image, redacted_img_path)
+            # Check if the file is an image
+            if filename.lower().endswith(('.pdf')):
 
+                redacted_image = process_image(filename, folder_path)
+
+                fileName = os.path.basename(remove_extension(filename))
+                redacted_img_path = "Redacted/" + str(fileName) + ".jpg"
+                
+                save_image(redacted_image, redacted_img_path)
+        except:
+            print("Some problem processing transcript...")
 
 
 def main():
